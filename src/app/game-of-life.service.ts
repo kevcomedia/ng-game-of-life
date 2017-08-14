@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CellState } from './cell-state';
+import { Cell } from './cell';
 
 @Injectable()
 export class GameOfLifeService {
-  private grid: CellState[][];
+  private cells: Cell[];
   private rows: number;
   private cols: number;
   generationCount = 0;
@@ -14,24 +14,34 @@ export class GameOfLifeService {
       throw Error(`Width and height must be at least ${minDimension}.`);
     }
 
+    this.cells = Array.from({
+      length: rows * cols
+    }).map((_, i, a) => new Cell(Math.floor(i / a.length), i % a.length));
     this.rows = rows;
     this.cols = cols;
     this.generationCount = 0;
-    this.grid = Array(rows).fill(Array(cols).fill(new CellState()));
   }
 
-  initializeRandom(rows = 10, cols = 10, cellLifeChance = 0.1) {
-    if (cellLifeChance < 0 || 1 <= cellLifeChance) {
-      throw Error('Invalid probability for random cell life chance.');
+  randomizeCellStates(cellLifeChance = 0.2) {
+    if (!this.cells) {
+      throw Error('Grid has not yet been initialized.');
     }
-    this.initialize(rows, cols);
-    this.grid.forEach(row => {
-      row.forEach(cell => {
-        if (Math.random() < cellLifeChance) {
-          cell.toggleState();
-        }
-      });
-    });
+
+    this.reset();
+    this.cells.forEach(cell => cell.setCurrentState(Math.random() < cellLifeChance));
+    // no need to update the previous states because we're starting from scratch anyway
+  }
+
+  getGrid(): Cell[][] {
+    const grid = [];
+    for (let i = 0; i < this.rows; i++) {
+      grid.push(this.cells.slice(i * this.cols, (i + 1) * this.cols));
+    }
+    return grid;
+  }
+
+  getCellAt(row = 0, col = 0): Cell {
+    return this.cells[row * this.cols + col];
   }
 
   toggleCellStateAt(row = 0, col = 0) {
@@ -39,37 +49,16 @@ export class GameOfLifeService {
       throw Error('Cell coordinates are out of bounds.');
     }
 
-    this.grid[row][col].toggleState();
+    this.getCellAt().toggleState();
   }
 
   updateGridState() {
-    this.grid.forEach(row => {
-      row.forEach(cell => cell.updateState());
-    });
-  }
-
-  stepToNextGeneration() {
-    this.grid.forEach((row, ri) => {
-      row.forEach((cell, ci) => {
-        const liveNeighborCount = this.getNeighborsOfCellAt(ri, ci).filter(c => c.isAlive()).length;
-        if (cell.isAlive()) {
-          if (liveNeighborCount < 2 || liveNeighborCount > 3) {
-            cell.toggleState();
-          }
-        } else {
-          if (liveNeighborCount === 3) {
-            cell.toggleState();
-          }
-        }
-      });
-    });
-
-    this.updateGridState();
-    this.generationCount++;
+    this.cells.forEach(cell => cell.updateState());
   }
 
   reset() {
-    this.initialize(this.rows, this.cols);
+    this.cells.forEach(cell => cell.reset());
+    this.generationCount = 0;
   }
 
   private getNeighborsOfCellAt(row = 0, col = 0) {
@@ -77,7 +66,7 @@ export class GameOfLifeService {
       throw Error('Cell coordinates are out of bounds.');
     }
 
-    const possibleNeightborIndexes = [
+    const possibleNeighborIndexes = [
       { row: row - 1, col: col },
       { row: row - 1, col: col + 1 },
       { row: row, col: col + 1 },
@@ -88,7 +77,7 @@ export class GameOfLifeService {
       { row: row - 1, col: col - 1}
     ].filter(offset => !this.isOutOfBounds(offset));
 
-    return possibleNeightborIndexes.map(({row: r, col: c}) => this.grid[r][c]);
+    return possibleNeighborIndexes.map(({row: r, col: c}) => this.getCellAt(r, c));
   }
 
   private isOutOfBounds({row, col}) {
