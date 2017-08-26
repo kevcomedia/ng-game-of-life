@@ -1,17 +1,32 @@
-export class CellState {
+export class Cell {
+  previousState = false;
+  currentState = false;
+  row: number;
+  col: number;
   // The dead state will be represented by `false`.
   // The live state by `true`.
-  constructor(public previous = false, public current = false) {}
+  constructor(row: number, col: number) {
+    this.row = row;
+    this.col = col;
+  }
+
+  setCurrentState(state: boolean) {
+    this.currentState = state;
+  }
 
   toggleState() {
-    this.current = !this.current;
+    this.currentState = !this.currentState;
   }
 
   updateState() {
-    this.previous = this.current;
+    this.previousState = this.currentState;
   }
 
-  isAlive() {
-    return this.current;
+  isAlive(): boolean {
+    return this.currentState;
+  }
+
+  reset() {
+    this.previousState = this.currentState = false;
   }
 }
