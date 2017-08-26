@@ -7,13 +7,21 @@ import { GameOfLifeService } from './game-of-life.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  rows = 10;
-  cols = 10;
+  rows = 50;
+  cols = 50;
 
   constructor(private gameOfLifeService: GameOfLifeService) {}
 
   ngOnInit() {
     this.gameOfLifeService.initialize(this.rows, this.cols);
     this.gameOfLifeService.randomizeCellStates();
+  }
+
+  step() {
+    this.gameOfLifeService.nextGeneration();
+  }
+
+  reset() {
+    this.gameOfLifeService.reset();
   }
 }

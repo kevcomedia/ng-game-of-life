@@ -1,6 +1,6 @@
 export class Cell {
-  previousState = false;
   currentState = false;
+  tempState = false;
   row: number;
   col: number;
   // The dead state will be represented by `false`.
@@ -10,16 +10,17 @@ export class Cell {
     this.col = col;
   }
 
-  setCurrentState(state: boolean) {
-    this.currentState = state;
+  setTempState(state: boolean) {
+    this.tempState = state;
   }
 
   toggleState() {
-    this.currentState = !this.currentState;
+    this.tempState = !this.tempState;
+    this.updateCurrentState();
   }
 
-  updateState() {
-    this.previousState = this.currentState;
+  updateCurrentState() {
+    this.currentState = this.tempState;
   }
 
   isAlive(): boolean {
@@ -27,6 +28,6 @@ export class Cell {
   }
 
   reset() {
-    this.previousState = this.currentState = false;
+    this.currentState = this.tempState = false;
   }
 }

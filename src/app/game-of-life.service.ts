@@ -28,7 +28,11 @@ export class GameOfLifeService {
     }
 
     this.reset();
-    this.cells.forEach(cell => cell.setCurrentState(Math.random() < cellLifeChance));
+    this.cells.forEach(cell => {
+      if (Math.random() < cellLifeChance) {
+        cell.toggleState();
+      }
+    });
     // no need to update the previous states because we're starting from scratch anyway
   }
 
@@ -53,7 +57,7 @@ export class GameOfLifeService {
   }
 
   updateGridState() {
-    this.cells.forEach(cell => cell.updateState());
+    this.cells.forEach(cell => cell.updateCurrentState());
   }
 
   reset() {
@@ -61,7 +65,27 @@ export class GameOfLifeService {
     this.generationCount = 0;
   }
 
-  private getNeighborsOfCellAt(row = 0, col = 0) {
+  nextGeneration() {
+    const alive = true;
+    this.cells.forEach(cell => {
+      const liveNeighborCount = this.getNeighborsOfCellAt(cell.row, cell.col)
+        .filter(c => c.isAlive())
+        .length;
+
+      switch (liveNeighborCount) {
+        case 2: // cell retains status; do nothing
+          break;
+        case 3: // dead cell comes to life; live cells remain alive anyway
+          cell.setTempState(alive);
+          break;
+        default:  // live cell dies; dead cells remain dead
+          cell.setTempState(!alive);
+      }
+    });
+    this.updateGridState();
+  }
+
+  private getNeighborsOfCellAt(row = 0, col = 0): Cell[] {
     if (this.isOutOfBounds({row, col})) {
       throw Error('Cell coordinates are out of bounds.');
     }
