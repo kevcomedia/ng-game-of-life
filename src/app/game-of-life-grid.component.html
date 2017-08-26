@@ -1,4 +1,7 @@
-<div class="grid-row" *ngFor="let row of grid, let i of index">
-  <div class="grid-cell" [class.alive]="cell.isAlive()" *ngFor="let cell of row, let j of index">
+<div class="grid-row" *ngFor="let row of grid">
+  <div class="grid-cell"
+       [class.alive]="cell.isAlive()"
+       *ngFor="let cell of row"
+       (click)="toggleState(cell.row, cell.col)">
   </div>
 </div>

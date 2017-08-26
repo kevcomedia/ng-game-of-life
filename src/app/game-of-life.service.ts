@@ -14,12 +14,12 @@ export class GameOfLifeService {
       throw Error(`Width and height must be at least ${minDimension}.`);
     }
 
-    this.cells = Array.from({
-      length: rows * cols
-    }).map((_, i, a) => new Cell(Math.floor(i / a.length), i % a.length));
     this.rows = rows;
     this.cols = cols;
     this.generationCount = 0;
+    this.cells = Array.from({
+      length: rows * cols
+    }).map((_, i, a) => new Cell(Math.floor(i / this.rows), i % this.cols));
   }
 
   randomizeCellStates(cellLifeChance = 0.2) {
@@ -49,7 +49,7 @@ export class GameOfLifeService {
       throw Error('Cell coordinates are out of bounds.');
     }
 
-    this.getCellAt().toggleState();
+    this.getCellAt(row, col).toggleState();
   }
 
   updateGridState() {
