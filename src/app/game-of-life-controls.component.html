@@ -1,4 +1,4 @@
-<button (click)="start()">Start</button>
-<button (click)="stop()">Stop</button>
+<button [disabled]="isRunning" (click)="start()">Start</button>
+<button [disabled]="!isRunning" (click)="stop()">Stop</button>
 <button (click)="reset()">Reset</button>
 <p>Generation {{this.getGenerationCount()}}</p>

@@ -7,6 +7,7 @@ import { GameOfLifeService } from './game-of-life.service';
 })
 export class GameOfLifeControlsComponent implements OnInit {
   private intervalId: number;
+  private isRunning: boolean;
 
   constructor(private gameOfLifeService: GameOfLifeService) {}
 
@@ -18,10 +19,12 @@ export class GameOfLifeControlsComponent implements OnInit {
     this.intervalId = window.setInterval(() => {
       this.gameOfLifeService.nextGeneration();
     }, 100);
+    this.isRunning = true;
   }
 
   stop() {
     window.clearInterval(this.intervalId);
+    this.isRunning = false;
   }
 
   getGenerationCount() {
