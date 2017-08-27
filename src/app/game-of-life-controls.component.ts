@@ -6,17 +6,26 @@ import { GameOfLifeService } from './game-of-life.service';
   templateUrl: './game-of-life-controls.component.html'
 })
 export class GameOfLifeControlsComponent {
+  private intervalId: number;
+
   constructor(private gameOfLifeService: GameOfLifeService) {}
+
+  start() {
+    this.intervalId = window.setInterval(() => {
+      this.gameOfLifeService.nextGeneration();
+    }, 100);
+  }
+
+  stop() {
+    window.clearInterval(this.intervalId);
+  }
 
   getGenerationCount() {
     return this.gameOfLifeService.getGenerationCount();
   }
 
-  step() {
-    this.gameOfLifeService.nextGeneration();
-  }
-
   reset() {
+    this.stop();
     this.gameOfLifeService.reset();
   }
 }
