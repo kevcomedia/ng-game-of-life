@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { GameOfLifeGridComponent } from './game-of-life-grid.component';
+import { GameOfLifeControlsComponent } from './game-of-life-controls.component';
 import { GameOfLifeService } from './game-of-life.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameOfLifeGridComponent
+    GameOfLifeGridComponent,
+    GameOfLifeControlsComponent
   ],
   imports: [
     BrowserModule
