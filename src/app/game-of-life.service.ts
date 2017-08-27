@@ -6,7 +6,7 @@ export class GameOfLifeService {
   private cells: Cell[];
   private rows: number;
   private cols: number;
-  generationCount = 0;
+  private generationCount = 0;
 
   initialize(rows = 10, cols = 10) {
     const minDimension = 5;
@@ -82,7 +82,12 @@ export class GameOfLifeService {
           cell.setTempState(!alive);
       }
     });
+    this.generationCount++;
     this.updateGridState();
+  }
+
+  getGenerationCount() {
+    return this.generationCount;
   }
 
   private getNeighborsOfCellAt(row = 0, col = 0): Cell[] {

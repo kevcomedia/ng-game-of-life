@@ -17,6 +17,10 @@ export class AppComponent implements OnInit {
     this.gameOfLifeService.randomizeCellStates();
   }
 
+  getGenerationCount() {
+    return this.gameOfLifeService.getGenerationCount();
+  }
+
   step() {
     this.gameOfLifeService.nextGeneration();
   }
