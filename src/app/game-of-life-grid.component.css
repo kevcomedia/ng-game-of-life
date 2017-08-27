@@ -1,0 +1,14 @@
+.grid-row {
+  display: flex;
+}
+
+.grid-cell {
+  width: 10px;
+  height: 10px;
+  margin: 1px;
+  background-color: #ddd;
+}
+
+.alive {
+  background-color: #333;
+}
