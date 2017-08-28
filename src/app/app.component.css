@@ -10,3 +10,9 @@ h1 {
   margin: 0 auto;
   max-width: 1000px;
 }
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}

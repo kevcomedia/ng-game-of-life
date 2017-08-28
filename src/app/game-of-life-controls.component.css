@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+}
