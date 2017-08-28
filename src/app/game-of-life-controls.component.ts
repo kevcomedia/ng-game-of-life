@@ -3,7 +3,8 @@ import { GameOfLifeService } from './game-of-life.service';
 
 @Component({
   selector: 'app-game-of-life-controls',
-  templateUrl: './game-of-life-controls.component.html'
+  templateUrl: './game-of-life-controls.component.html',
+  styleUrls: ['./game-of-life-controls.component.css']
 })
 export class GameOfLifeControlsComponent implements OnInit {
   private intervalId: number;

@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  border: 0;
+  background-color: #007fff;
+  color: #fff;
+  padding: .4em;
+  margin: 0 .4em;
+}
+
+button[disabled] {
+  background-color: #d0e7ff;
+  color: #a2d0ff;
+}
