@@ -8,9 +8,13 @@ import { GameOfLifeService } from './game-of-life.service';
 })
 export class GameOfLifeControlsComponent implements OnInit {
   private intervalId: number;
-  private isRunning: boolean;
+  private _isRunning: boolean;
 
   constructor(private gameOfLifeService: GameOfLifeService) {}
+
+  get isRunning() {
+    return this._isRunning;
+  }
 
   ngOnInit() {
     this.start();
@@ -20,12 +24,12 @@ export class GameOfLifeControlsComponent implements OnInit {
     this.intervalId = window.setInterval(() => {
       this.gameOfLifeService.nextGeneration();
     }, 100);
-    this.isRunning = true;
+    this._isRunning = true;
   }
 
   stop() {
     window.clearInterval(this.intervalId);
-    this.isRunning = false;
+    this._isRunning = false;
   }
 
   getGenerationCount() {
