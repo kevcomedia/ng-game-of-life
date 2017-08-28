@@ -1,0 +1,18 @@
+header {
+  background-color: #256eff;
+  padding-top: .67em;
+  padding-bottom: .67em;
+  margin-bottom: 1em;
+}
+
+h1 {
+  color: #fff;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}

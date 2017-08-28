@@ -1,0 +1,23 @@
+.grid-row {
+  display: flex;
+  margin-bottom: 1px;
+}
+
+.grid-row:last-child {
+  margin-bottom: 0;
+}
+
+.grid-cell {
+  width: 10px;
+  height: 10px;
+  margin-right: 1px;
+  background-color: #eaeaea;
+}
+
+.grid-cell:last-child {
+  margin-right: 0;
+}
+
+.alive {
+  background-color: #2da16e;
+}

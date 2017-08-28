@@ -1,0 +1,6 @@
+<div class="buttonGroup">
+  <button [disabled]="isRunning" (click)="start()">Start</button>
+  <button [disabled]="!isRunning" (click)="stop()">Stop</button>
+  <button (click)="reset()">Reset</button>
+</div>
+<p>Generation {{this.getGenerationCount()}}</p>
