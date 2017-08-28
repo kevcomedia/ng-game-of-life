@@ -19,7 +19,7 @@ export class GameOfLifeService {
     this.generationCount = 0;
     this.cells = Array.from({
       length: rows * cols
-    }).map((_, i, a) => new Cell(Math.floor(i / this.rows), i % this.cols));
+    }).map((_, i, a) => new Cell(Math.floor(i / this.cols), i % this.cols));
   }
 
   randomizeCellStates(cellLifeChance = 0.2) {
