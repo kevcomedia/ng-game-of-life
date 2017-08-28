@@ -1,13 +1,28 @@
+/**
+ * Represents a cell in the Game of Life.
+ */
 export class Cell {
-  currentState = false;
-  tempState = false;
-  row: number;
-  col: number;
+  // The actual state of the cell.
+  private currentState = false;
+  // This is where the cell's new state will be stored after
+  // computing the next generation.
+  private tempState = false;
+  private _row: number;
+  private _col: number;
+
   // The dead state will be represented by `false`.
   // The live state by `true`.
   constructor(row: number, col: number) {
-    this.row = row;
-    this.col = col;
+    this._row = row;
+    this._col = col;
+  }
+
+  get row(): number {
+    return this._row;
+  }
+
+  get col(): number {
+    return this._col;
   }
 
   setTempState(state: boolean) {

@@ -19,7 +19,7 @@ export class GameOfLifeGridComponent implements OnInit {
     this.grid = this.gameOfLifeService.getGrid();
   }
 
-  toggleState(row, col) {
-    this.gameOfLifeService.toggleCellStateAt(row, col);
+  toggleState(cell: Cell) {
+    cell.toggleState();
   }
 }
