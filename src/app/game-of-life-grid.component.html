@@ -2,6 +2,6 @@
   <div class="grid-cell"
        [class.alive]="cell.isAlive()"
        *ngFor="let cell of row"
-       (click)="toggleState(cell.row, cell.col)">
+       (click)="toggleState(cell)">
   </div>
 </div>

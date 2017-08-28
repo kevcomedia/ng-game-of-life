@@ -29,7 +29,7 @@ export class GameOfLifeControlsComponent implements OnInit {
   }
 
   getGenerationCount() {
-    return this.gameOfLifeService.getGenerationCount();
+    return this.gameOfLifeService.generationCount;
   }
 
   reset() {
